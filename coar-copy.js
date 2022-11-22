@@ -8,7 +8,7 @@ const listSelector = '[bmg-arco = "c-list"]',
     buttonXanoIdAttribute = 'bmg-arco-xano-id',
     nameSelector = '[bmg-arco = "name"]',
     dateSelector = '[bmg-arco = "date"]',
-    xanoUrlString = 'https://x8ki-letl-twmt.n7.xano.io/api:4lTavcfO/component_list'
+    xanoUrlString = 'https://xju6-kpzy-l8vj.n7.xano.io/api:4lTavcfO/component_list'
 
 // Main function
 $(listSelector).each(function()
@@ -81,7 +81,7 @@ $(listSelector).each(function()
 // - Copy to clipboard function -
 
 // Variables
-let xanoPlatformBaseUrlString = 'https://x8ki-letl-twmt.n7.xano.io/api:4lTavcfO/component_list/',
+let xanoPlatformBaseUrlString = 'https://xju6-kpzy-l8vj.n7.xano.io/api:4lTavcfO/component_list/',
     copyText = '',
     copyType = ''
 
