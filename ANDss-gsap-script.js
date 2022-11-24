@@ -12,12 +12,15 @@ const lastSection = document.querySelector('.section_abraxo'),
 // Main function
 ScrollTrigger.create({
     trigger: lastSection,
-    start: "top 5%",
+    start: "top 7.5%",
     onEnter: () => 
     {
         if ( $button.attr('aria-selected') == 'true' )
         {
-            gsap.to([logo, links], { color: 'rgb(0, 0, 0)', duration: 1 })
+            let tl = gsap.timeline()
+            tl.to([logo, links], { color: 'rgb(0, 0, 0)', duration: 1 })
+            tl.to([logo, links], { color: 'rgb(0, 0, 0)', duration: 1 })
+            tl.to([logo, links], { color: 'rgb(0, 0, 0)', duration: 1 })
         }
     }
 })
