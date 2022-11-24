@@ -15,14 +15,13 @@ ScrollTrigger.create({
     start: "top 2.5%",
     onEnter: () => 
     {
-        console.log("Last section entered.")
         if ( $button.attr('aria-selected') == 'true' )
         {
-            tl.to([logo, links], { color: 'rgb(0, 0, 0)', duration: 1 })
+            gsap.to([logo, links], { color: 'rgb(0, 0, 0)', duration: 1 })
         }
         else
         {
-            tl.to([logo, links], { color: 'rgb(255, 255, 255)', duration: 1 })
+            gsap.to([logo, links], { color: 'rgb(255, 255, 255)', duration: 1 })
         }
     }
 })
