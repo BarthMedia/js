@@ -12,7 +12,7 @@ const lastSection = document.querySelector('.section_abraxo'),
 // Main function
 ScrollTrigger.create({
     trigger: lastSection,
-    start: "top top",
+    start: "top 10%",
     onEnter: () => 
     {
         if ( $button.attr('aria-selected') == 'true' )
