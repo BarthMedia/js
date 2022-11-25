@@ -52,8 +52,8 @@ $(listSelector).each(function()
                 // Change name
                 $name.text( component.name )
 
-                // Change name
-                $date.text( component.created_at )
+                // Change name     
+                $date.text( createCreationDate( component.created_at ) )
                 
                 // Append new item
                 $list.append( $item )
@@ -77,6 +77,30 @@ $(listSelector).each(function()
 
 
 // + Helper functions +
+
+// Create creation date
+function createCreationDate( unixTimeStamp )
+{
+    // Local variables
+    let date = new Date( unixTimeStamp ),
+        month = date.toLocaleString('default', { month: 'long' }),
+        day = date.getDate(),
+        year = date.getFullYear(),
+        creationDate = `${ month } ${ day }${ retrunNth( day ) }, ${ year }`
+
+    // Return formatted string
+    return creationDate
+}
+
+// Return ending of day
+function retrunNth( day ) {
+  switch (day % 10) {
+    case 1:  return "st";
+    case 2:  return "nd";
+    case 3:  return "rd";
+    default: return "th";
+  }
+}
 
 // - Copy to clipboard function -
 
