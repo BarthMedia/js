@@ -86,20 +86,23 @@ function createCreationDate( unixTimeStamp )
         month = date.toLocaleString('default', { month: 'long' }),
         day = date.getDate(),
         year = date.getFullYear(),
-        creationDate = `${ month } ${ day }${ retrunNth( day ) }, ${ year }`
+        timeString = `${ month } ${ day }${ retrunNth( day ) }, ${ year }`
 
     // Return formatted string
-    return creationDate
+    return timeString
 }
 
 // Return ending of day
-function retrunNth( day ) {
-  switch (day % 10) {
-    case 1:  return "st";
-    case 2:  return "nd";
-    case 3:  return "rd";
-    default: return "th";
-  }
+function retrunNth( day )
+{
+    if ( day > 3 && day < 21 ) return "th"
+    switch (day % 10)
+    {
+        case 1:  return "st"
+        case 2:  return "nd"
+        case 3:  return "rd"
+        default: return "th"
+    }
 }
 
 // - Copy to clipboard function -
