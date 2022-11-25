@@ -1,4 +1,4 @@
-/* Start of: BMG - Arco xano code */
+(() => { /* Start of: BMG - Arco xano code */
 
 // Global strings
 const listSelector = '[bmg-arco = "c-list"]',
@@ -203,4 +203,4 @@ function removeSquareBrackets( string )
     return string.replace(/\[/g, '').replace(/\]/g, '')
 }
 
-/* End of: BMG - Arco xano code */
+})() /* End of: BMG - Arco xano code */
