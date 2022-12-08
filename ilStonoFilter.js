@@ -1,4 +1,4 @@
-(() => { /* Start of: [BMG.studio] Il Granito Filter script */
+/* Start of: [BMG.studio] Il Granito Filter script */
 
 // + Global Values +
 
@@ -140,8 +140,8 @@ $(natturalStoneSelector).click(() =>
     let href = $filteredItem.find('a').attr('href')
 
     // Action
-    $urlDiv.attr('href', href)
+    $urlDiv.attr(redirectUrlAttribute, href)
 })
 
 
-})() /* End of: [BMG.studio] Il Granito Filter script */
+/* End of: [BMG.studio] Il Granito Filter script */
