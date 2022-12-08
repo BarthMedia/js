@@ -1,4 +1,4 @@
-/* Start of: [BMG.studio] Il Granito Filter script */
+(() => { /* Start of: [BMG.studio] Il Granito Filter script */
 
 // + Global Values +
 
@@ -144,4 +144,4 @@ $(natturalStoneSelector).click(() =>
 })
 
 
-/* End of: [BMG.studio] Il Granito Filter script */
+})() /* End of: [BMG.studio] Il Granito Filter script */
