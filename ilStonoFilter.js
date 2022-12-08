@@ -123,7 +123,7 @@ $(natturalStoneSelector).click(() =>
                 filterType = $filter.attr(fsFilterAttribute)
                 
             // Logic
-            if ( filterByObject[filterType] != filterValue )
+            if ( filterValue != '' && filterByObject[filterType] != filterValue )
             {
                 isFilteredItem = false
             }
