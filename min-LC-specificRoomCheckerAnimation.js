@@ -3,7 +3,7 @@ $('[bmg-element = "Specific Rooms Step"]').each(function () {
         t = o.find(".pl_specific-rooms_minus");
     ($numbers = o.find('[bmg-element="Number"]')),
         ($button = o.find('[bmg-form="Continue Button"]')).click(() => {
-            "Passed!" != o.attr("bmg-data-custom-requirements-passed", "Passed!")
+            "Passed!" != o.attr("bmg-data-custom-requirements-passed")
                 ? ($numbers.each(function () {
                       gsap.to(this, { color: "crimson", duration: 0.43 });
                   }),
