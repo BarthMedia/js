@@ -15,7 +15,7 @@ const targetRichtextSelector = '[bmg-element = "Target Rich Text"]',
 
 
 // + Main +
-$(sectionSelector).each(function() 
+function main() { $(sectionSelector).each(function() 
 {
     // Elements
     let $section = $(this),
@@ -42,22 +42,24 @@ $(sectionSelector).each(function()
     // Event listener
     $arrowWrapper.click(() => 
     {
-        // Elements
-        let $nav = $section.find(slideNavSelector)
+        setTimeout(() => {
+            // Elements
+            let $nav = $section.find(slideNavSelector)
 
-        // Value
-        let activeInt = findActiveSlide( $nav.children() )
+            // Value
+            let activeInt = findActiveSlide( $nav.children() )
 
-        // Logic
-        if ( activeIndex == activeInt ) return
-        else
-        {
-            // Update
-            activeIndex = activeInt
+            // Logic
+            if ( activeIndex == activeInt ) return
+            else
+            {
+                // Update
+                activeIndex = activeInt
 
-            // Show active item
-            showNthDynItem( dynData[activeIndex], $targetRichtext, $targetImage, borderItems, activeIndex )
+                // Show active item
+                showNthDynItem( dynData[activeIndex], $targetRichtext, $targetImage, borderItems, activeIndex )
         }
+        }, 10)
     })
 
     // Event loop for slides
@@ -70,11 +72,16 @@ $(sectionSelector).each(function()
         // Event listener
         $slide.click(() => 
         {
+            // Fire webflow slider
             $navDot.click()
-            showNthDynItem( dynData[index], $targetRichtext, $targetImage, borderItems, index )
+
+            // Call gsap animation
+            setTimeout(() => {
+                showNthDynItem( dynData[index], $targetRichtext, $targetImage, borderItems, index )
+            }, 10)
         })
     })
-})
+}) }
 
 
 // + Helper +
@@ -115,9 +122,9 @@ function showNthDynItem( obj, $targetRichtext, $targetImage, slides, n )
     // Borders
     let tl = gsap.timeline()
 
-    tl.to(slides, { duration: .5, borderColor: '#d4d5de' })
+    tl.to(slides, { duration: .49, borderColor: '#d4d5de' })
     tl.to(slides, { duration: 0, borderColor: '' })
-    gsap.to(slides[n], { duration: .5, borderColor: '#0f55bd' })
+    gsap.to(slides[n], { duration: .49, borderColor: '#0f55bd' })
 }
 
 // Return vanilla JS elements / nodelist
@@ -159,5 +166,24 @@ function populateDynData( arr, $es )
         })
     })
 }
+
+
+// + Loader +
+function loader()
+{
+    // Elements
+    let $children = $(sectionSelector).last().find('.w-dyn-items').children()
+
+    // Values
+    let i = $children.length
+
+    // Logic & loop
+    if ( i == 0 ) { main() }
+    else
+    {
+        setTimeout( loader, 100 )
+    }
+}
+loader()
 
 })() /* End of: [BMG.studio] BGS events slider code */
