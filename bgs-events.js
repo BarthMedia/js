@@ -19,8 +19,10 @@ function main() { $(sectionSelector).each(function()
 {
     // Elements
     let $section = $(this),
-        $targetRichtext = $section.find(targetRichtextSelector),
-        $targetImage = $section.find(targetImageSelector),
+        $targetRichtextClone = $section.find(targetRichtextSelector).clone(),
+        $targetRichtextParent = $section.find(targetRichtextSelector),
+        $targetImageClone = $section.find(targetImageSelector).clone(),
+        $targetImageParent = $section.find(targetImageSelector).parent(),
         $dynItems = $section.find(dynItemSelector),
         $arrowWrapper = $section.find(arrowWrapperSelector),
         $slides = $section.find(slideSelector),
@@ -37,7 +39,7 @@ function main() { $(sectionSelector).each(function()
     populateDynData( dynData, $dynItems )
 
     // Show first item
-    showNthDynItem( dynData[0], $targetRichtext, $targetImage, borderItems, activeIndex )
+    showNthDynItem( dynData[0], $targetRichtextParent, $targetImageParent, borderItems, activeIndex, $targetImageClone, $targetRichtextClone )
 
     // Event listener
     $arrowWrapper.click(() => 
@@ -57,7 +59,7 @@ function main() { $(sectionSelector).each(function()
                 activeIndex = activeInt
 
                 // Show active item
-                showNthDynItem( dynData[activeIndex], $targetRichtext, $targetImage, borderItems, activeIndex )
+                showNthDynItem( dynData[activeIndex], $targetRichtextParent, $targetImageParent, borderItems, activeIndex, $targetImageClone, $targetRichtextClone )
         }
         }, 10)
     })
@@ -72,12 +74,15 @@ function main() { $(sectionSelector).each(function()
         // Event listener
         $slide.click(() => 
         {
+            // Update
+            activeIndex = index
+            
             // Fire webflow slider
             $navDot.click()
 
             // Call gsap animation
             setTimeout(() => {
-                showNthDynItem( dynData[index], $targetRichtext, $targetImage, borderItems, index )
+                showNthDynItem( dynData[index], $targetRichtextParent, $targetImageParent, borderItems, index, $targetImageClone, $targetRichtextClone )
             }, 10)
         })
     })
@@ -103,21 +108,51 @@ function findActiveSlide( $es )
 }
 
 // Replace placeholders
-function showNthDynItem( obj, $targetRichtext, $targetImage, slides, n )
+function showNthDynItem( obj, $targetRichtextParent, $targetImageParent, slides, n, $targetImageClone, $targetRichtextClone )
 {
     // Richtext
-    if ( !obj.$richtext.hasClass('w-dyn-bind-empty') )
+    gsap.to( $targetRichtextParent[0], { opacity: 0, duration: .25 } )
+
+    setTimeout( () => 
     {
-        $targetRichtext.empty()
-        $targetRichtext.append( obj.$richtext )
-    }
+        // Logic
+        if ( !obj.$richtext.hasClass('w-dyn-bind-empty') )
+        {
+            $targetRichtextParent.empty()
+            $targetRichtextParent.append( obj.$richtext )
+        }
+        else
+        {
+            $targetRichtextParent.empty()
+            $targetRichtextParent.append( $targetRichtextClone )
+        }
+
+        // Reveal
+        gsap.to( $targetRichtextParent[0], { opacity: 1, duration: .25 } )
+    }, 250)
+    
 
     // Image
-    if ( !obj.$image.hasClass('w-dyn-bind-empty') )
+    gsap.to( $targetImageParent[0], { opacity: 0, duration: .25 } )
+    
+    setTimeout( () => 
     {
-        $targetImage.parent().children().hide()
-        $targetImage.parent().append( obj.$image )
-    }
+        // Logic
+        if ( !obj.$image.hasClass('w-dyn-bind-empty') )
+        {
+            $targetImageParent.empty()
+            $targetImageParent.append( obj.$image )
+        }
+        else
+        {
+            $targetImageParent.empty()
+            $targetImageParent.append( $targetImageClone )
+        }
+
+        // Reveal
+        gsap.to( $targetImageParent[0], { opacity: 1, duration: .25 } )
+    }, 250)
+    
 
     // Borders
     let tl = gsap.timeline()
