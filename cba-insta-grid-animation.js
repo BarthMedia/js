@@ -1,0 +1,1 @@
+(()=>{function t(t){let e=[];return t.each(function(){e.push(this)}),e}$('[bmg-element = "IG Grid"]').each(function(){let e=$(this),n=t(e.children());gsap.set(n,{y:"3rem",opacity:0}),new ScrollTrigger.create({trigger:e[0],start:"top bottom",once:!0,onEnter:()=>void gsap.to(n,{y:"0rem",opacity:1,duration:1,stagger:.2})})})})();
