@@ -51,7 +51,7 @@ $(stepSelector).each(function()
             const thirdCheckbox = index != 2 ? false : $checkbox.hasClass( wChecked )
 
             // Logic
-            if ( val == 0 && !thirdCheckbox && inputVal == undefined )
+            if ( val == 0 && !thirdCheckbox && !inputVal )
             {
                 // Animation
                 gsap.to( text, { color: 'red', duration: .43 } )
