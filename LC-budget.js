@@ -45,13 +45,11 @@ $(stepSelector).each(function()
             const val = parseInt( $value.text() ),
                 inputVal = $input.val()
 
-            console.log(inputVal)
-
             // Check if it is the third element
             const thirdCheckbox = index != 2 ? false : $checkbox.hasClass( wChecked )
 
             // Logic
-            if ( val == 0 && !thirdCheckbox && !inputVal )
+            if ( val == 0 && !thirdCheckbox && ( !inputVal || ['0', '/'].includes( inputVal ) ) )
             {
                 // Animation
                 gsap.to( text, { color: 'red', duration: .43 } )
