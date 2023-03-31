@@ -20,11 +20,12 @@ const wChecked = 'w--redirected-checked'
 $(stepSelector).each(function()
 {
     // Elements
-    let $step = $(this),
+    const $step = $(this),
         $texts = $step.find(textSelector),
         $values = $step.find(valueSelector),
         $checkbox = $step.find(checkboxSelector),
-        $button = $step.find(continueButtonSelector)
+        $button = $step.find(continueButtonSelector),
+        $inputs = $step.find('.input');
 
     // Event listener
     $button.click(() => 
@@ -36,17 +37,21 @@ $(stepSelector).each(function()
         $values.each(function(index)
         {
             // Elements
-            let $value = $(this),
+            const $value = $(this),
+                $input = $inputs.eq(index),
                 text = $texts.eq(index)[0]
             
             // Values
-            let val = parseInt( $value.text() )
+            const val = parseInt( $value.text() ),
+                inputVal = $input.val()
+
+            console.log(inputVal)
 
             // Check if it is the third element
-            let thirdCheckbox = index != 2 ? false : $checkbox.hasClass( wChecked )
+            const thirdCheckbox = index != 2 ? false : $checkbox.hasClass( wChecked )
 
             // Logic
-            if ( val == 0 && !thirdCheckbox )
+            if ( val == 0 && !thirdCheckbox && inputVal == undefined )
             {
                 // Animation
                 gsap.to( text, { color: 'red', duration: .43 } )
