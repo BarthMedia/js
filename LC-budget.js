@@ -10,7 +10,8 @@ const stepSelector = '[bmg-element = "Plus Dragger Step"]',
     continueButtonSelector = '[bmg-form="Continue Button"]'
 
 // Attributes
-const requirementsPassedAttribute = 'bmg-data-custom-requirements-passed'
+const requirementsPassedAttribute = 'bmg-data-custom-requirements-passed',
+    inputMinimumAttribute = 'bmg-input-min'
 
 // Classes
 const wChecked = 'w--redirected-checked'
@@ -27,6 +28,11 @@ $(stepSelector).each(function()
         $button = $step.find(continueButtonSelector),
         $inputs = $step.find('.input');
 
+    // Format inputs
+    $inputs.on('input', function() {
+        $(this).val( formatNumber($(this).val()) )
+    })
+
     // Event listener
     $button.click(() => 
     {
@@ -42,14 +48,16 @@ $(stepSelector).each(function()
                 text = $texts.eq(index)[0]
             
             // Values
-            const val = parseInt( $value.text() ),
-                inputVal = $input.val()
+            const sliderVal = parseInt( $value.text().replace(/\D/g, '') ),
+                inputVal = parseInt( $input.val().replace(/\D/g, '') || 0 ),
+                inputMin = parseInt( $input.attr(inputMinimumAttribute) )
+
 
             // Check if it is the third element
             const thirdCheckbox = index != 2 ? false : $checkbox.hasClass( wChecked )
 
             // Logic
-            if ( val == 0 && !thirdCheckbox && ( !inputVal || ['0', '/'].includes( inputVal ) ) )
+            if ( sliderVal < inputMin && !thirdCheckbox && ( inputVal < inputMin ) )
             {
                 // Animation
                 gsap.to( text, { color: 'red', duration: .43 } )
@@ -75,5 +83,27 @@ $(stepSelector).each(function()
         }
     })
 })
+
+
+// + Helper +
+
+// Format numbers properly
+function formatNumber(input) {
+  // Remove all non-digit characters from the input
+  let digitsOnly = input.replace(/\D/g, '');
+
+  // Split the string into groups of three digits each, starting from the end
+  let groups = digitsOnly.match(/.{1,3}(?=(.{3})*$)/g);
+
+  // Join the groups with a comma between them and return the result
+  let result = groups ? groups.join(',') : '';
+  
+  // Make sure the first digit is not 0
+  if (result.startsWith('0')) {
+    result = result.slice(1);
+  }
+
+  return result;
+}
 
 })() /* End of: [BMG.studio] LC budget script */
